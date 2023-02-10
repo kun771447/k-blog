@@ -6,6 +6,7 @@ export default {
   description: "记录学习，记录成长",
   head: [["link", { rel: "icon", href: "/k-blog/favicon.ico" }]],
   base: "/k-blog/",
+  cleanUrls: true,
   themeConfig: {
     siteTitle: "智慧星球",
     logo: "/logo.png",
