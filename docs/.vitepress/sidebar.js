@@ -1,5 +1,4 @@
 import { createSideBarConfig } from "./util";
-// const JS_PATH = "/js";
-// createSideBarConfig("js", JS_PATH)
+const CSS_PATH = "/css";
 
-export const sidebar = [];
+export const sidebar = [createSideBarConfig("css", CSS_PATH)];
