@@ -2,11 +2,15 @@ import { markdown } from "./markdown";
 import { sidebar } from "./sidebar";
 
 export default {
-  title: "K-Blog",
+  title: "知识星球",
   description: "记录学习，记录成长",
   head: [["link", { rel: "icon", href: "/k-blog/favicon.ico" }]],
   base: "/k-blog/",
   themeConfig: {
+    siteTitle: "知识星球",
+    logo: "/logo.png",
+    markdown,
+    sidebar,
     outline: "deep", // 右侧大纲标题层级
     outlineTitle: "目录", // 右侧大纲标题文本配置
     outlineBadges: false, // 是否在大纲中显示 Badge 文本
@@ -21,10 +25,6 @@ export default {
       pattern: "https://github.com/kun771447/k-blog.git",
       text: "不妥之处，敬请雅正",
     },
-    logo: "/logo.png",
-    siteTitle: "K-Blog",
-    markdown,
-    sidebar,
     socialLinks: [
       { icon: "github", link: "https://github.com/kun771447/k-blog.git" },
     ],
