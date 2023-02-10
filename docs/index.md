@@ -5,7 +5,7 @@ title: 记录学习，记录成长
 titleTemplate: 个人知识库，记录和分享个人碎片化、结构化、体系化的知识内容
 
 hero:
-  name: 知识星球
+  name: 智慧星球
   text: 专注 & 洞察 & 分享
   tagline: 个人知识库，记录 & 分享个人碎片化、结构化、体系化的知识内容。
   image:

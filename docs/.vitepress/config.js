@@ -2,12 +2,12 @@ import { markdown } from "./markdown";
 import { sidebar } from "./sidebar";
 
 export default {
-  title: "知识星球",
+  title: "智慧星球",
   description: "记录学习，记录成长",
   head: [["link", { rel: "icon", href: "/k-blog/favicon.ico" }]],
   base: "/k-blog/",
   themeConfig: {
-    siteTitle: "知识星球",
+    siteTitle: "智慧星球",
     logo: "/logo.png",
     markdown,
     sidebar,
