@@ -8,7 +8,7 @@ tags:
 
 # HTML 语义化
 
-<img src="/html/01.awebp"/>
+<img src="/html/01.jpg"/>
 
 ## 一、为什么要语义化，有什么优点
 

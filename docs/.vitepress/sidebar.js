@@ -1,9 +1,9 @@
 import { createSideBarConfig } from "./util";
 
 const pathArr = [
-"html", 
-// "css", 
-// "tcp"
+  "html",
+  // "css",
+  "tcp",
 ];
 
 export const sidebar = pathArr.map((item) =>
