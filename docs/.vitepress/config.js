@@ -4,6 +4,7 @@ export default {
   title: "K-Blog",
   description: "记录学习，记录成长",
   head: [["link", { rel: "icon", href: "/logo.jpg" }]],
+  base: '/k-blog/',
   themeConfig: {
     outline: 'deep', // 右侧大纲标题层级
     outlineTitle: '目录', // 右侧大纲标题文本配置
