@@ -1,3 +1,4 @@
+import { markdown } from "./markdown";
 import { sidebar } from "./sidebar";
 
 export default {
@@ -22,6 +23,7 @@ export default {
     },
     logo: "/logo.png",
     siteTitle: "K-Blog",
+    markdown,
     sidebar,
     socialLinks: [
       { icon: "github", link: "https://github.com/kun771447/k-blog.git" },
