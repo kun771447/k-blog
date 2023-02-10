@@ -14,7 +14,7 @@ hero:
   actions:
     - theme: brand
       text: Get Started
-      link: /css/01-布局
+      link: /html/01-HTML语义化
     - theme: alt
       text: View on GitHub
       link: https://github.com/kun771447/k-blog.git

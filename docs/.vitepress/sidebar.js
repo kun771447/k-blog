@@ -1,4 +1,7 @@
 import { createSideBarConfig } from "./util";
-const CSS_PATH = "/css";
 
-export const sidebar = [createSideBarConfig("css", CSS_PATH)];
+const pathArr = ["html", "css", "tcp"];
+
+export const sidebar = pathArr.map((item) =>
+  createSideBarConfig(item, "/" + item)
+);
