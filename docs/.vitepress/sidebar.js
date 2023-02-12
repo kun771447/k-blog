@@ -7,5 +7,5 @@ const pathArr = [
 ];
 
 export const sidebar = pathArr.map((item) =>
-  createSideBarConfig(item, "/" + item)
+  createSideBarConfig(item, "/" + item, false)
 );
