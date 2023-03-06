@@ -1,0 +1,1 @@
+import{_ as s,c as a,o as n,a as e}from"./app.2acdff0e.js";const y=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"config/01-npm全局安装配置.md"}'),l={name:"config/01-npm全局安装配置.md"},o=e("",4),p=[o];function t(c,r,i,_,d,C){return n(),a("div",null,p)}const h=s(l,[["render",t]]);export{y as __pageData,h as default};
