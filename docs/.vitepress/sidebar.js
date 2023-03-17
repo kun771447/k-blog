@@ -4,6 +4,7 @@ const pathArr = [
   "html",
   // "css",
   "tcp",
+  "性能优化"
 ];
 
 export const sidebar = pathArr.map((item) =>
