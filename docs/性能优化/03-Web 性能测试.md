@@ -34,7 +34,6 @@
 
 Lighthouse是一个由Google开发并开源的 Web 性能测试工具，用于改进网络应用的质量。您可以将其作为一个 Chrome扩展程序运行，或从命令行运行。您为Lighthouse提供一个您要审查的网址，它将针对此页面运行一连串的测试，然后生成一个有关页面性能的报告。
 
-
 - 优化网站案例
   
   - https://developer.chrome.com/docs/devtools/speed/get-started/
@@ -66,11 +65,7 @@ Network面板是Chrome开发者工具中一个经常会被用到的工具面板�
 
 - 打开方式：Ctrl + Shift + P -> coverage(覆盖)
 
-
-
 我们可以通过 Coverage 面板监控并统计出网站应用运行过程中代码执行的覆盖该面板统计的对象是 JavaScript 脚本文件与 CSS 样式表文件，统计结果王要包护件的字节大小、执行过程中已覆盖的代码字节数，以及可视化的覆盖率条形图。
-
-
 
 根据执行结果我们能够发现，在启动录制的过程中到底有哪些尺寸较大的代码文1
 率较低，这就意味着有些代码文件中可能存在较多的无用代码，更准确地说是暂[
@@ -78,16 +73,11 @@ Network面板是Chrome开发者工具中一个经常会被用到的工具面板�
 件进行拆分，将首屏渲染阶段暂时不会执行到的代码部分单独打包，仅在需要的E
 载。
 
-
-
 ### Memory 面板 (内存使用情况)
 
 前端主要使用JavaScript代码来处理业务逻辑，所以保证代码在执行过程中内存销对用户的性能体验来说尤为重要，如果出现内存泄漏，那么就可能会带来网站崩溃的后果。
 
-
 为了更细致和准确地监控网站应用当前的内存使用情况，Chrome浏览器开发者.Memory面板，通过它可以快速生成当前的堆内存快照，或者查看内存随时间的情况。据此我们可以查看并发现可能出现内存泄漏的环节，下图是使用Memory 面内存使用快照的情况。
-
-
 
 ```html
 <body>
@@ -107,9 +97,9 @@ Network面板是Chrome开发者工具中一个经常会被用到的工具面板�
     function run(){
         newArr = newArr.concat(arr);
     }
-    
+
     let clearRun;
-    
+
     document.querySelector('#run').onclick = function () {
         clearRun = setInterval(() => {
             run();
@@ -119,9 +109,8 @@ Network面板是Chrome开发者工具中一个经常会被用到的工具面板�
         clearInterval(clearRun)
     }
 </script>
-    
-</body>
 
+</body>
 ```
 
 ![](D:\系统默认\桌面\code\Project\k-blog\docs\public\性能优化\2023-03-06-15-22-33-image.png)
@@ -132,13 +121,9 @@ Network面板是Chrome开发者工具中一个经常会被用到的工具面板�
 
 使用Performance面板主要对网站应用的运行时性能表现进行检测与分析，其可检测的内容不仅包括页面的每秒帧数（FPS)、CPU的消耗情况和各种请求的时间花费，还能查看页面在前 1ms 与后 1ms 之间网络任务的执行情况等内容。
 
-
-
 测试示例：
 
 https://googlechrome.github.io/devtools-samples/jank/
-
-
 
 ### FPS 监视器和性能监视器
 
@@ -148,8 +133,6 @@ https://googlechrome.github.io/devtools-samples/jank/
 公
 2、在命令菜单中开始键入Rendering，然后选择显示渲染.
 3、在呈现工具中，打开FPS 指示器。新的叠加层将显示在视线的右上角。
-
-
 
 **Performance monitor**
 
