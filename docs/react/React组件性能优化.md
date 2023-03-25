@@ -21,11 +21,7 @@
 5.需求∶在状态对象中存储name值为张三，组件挂载完成后将name属性的值再次更改为张三，然后分别将name 传递给纯组件和非纯组件，
 查看结果。
 
-
-
 ## 3. shouldComponentUpdate
-
-
 
 纯组件只能进行浅层比较，要进行深层比较，使用shouldComponentUpdate，它用于编写自定义比较逻辑。
 
@@ -41,8 +37,6 @@
 
 将函数组件变为纯组件，将当前 props和上一次的props进行浅层比较，如果相同就阻止组件重新渲染。
 需求∶父组件维护两个状态，index和name，开启定时器让 index 不断发生变化，name 传递给子组件，查看父组件更新子组件是否也更新了。
-
-
 
 2.memo 传递比较逻辑
 
@@ -99,7 +93,7 @@ import React,{ lazy, Suspense } from "react"
 
 function App(){
     let lazyComponent = null;
-    
+
     if(true) {
         lazyComponent = lazy(() =>import(/* WebpackChunkName: "Home" */ "./Home"))
     } else {
@@ -118,33 +112,19 @@ function App(){
 
 React组件中返回的jsx如果有多个同级元素,多个同级元素必须要有一个共同的父级.
 
-
-
 为了满足这个条件我们通常都会在最外层添加一个div,但是这样的话就会多出一个无意义的标记，如果每个组件都多出这样的一个无意义标记的话浏览器渲染引擎的负担就会加剧.
-
 
 为了解决这个问题, React推出了fragment 占位符标记.使用占位符标记既满足了拥有共同父级的要求又不会多出额外的无意义标记.
 
-
-
 ## 7. 不要使用内联函数定义
-
-
 
 在使用内联函数后, render方法每次运行时都会创建该函数的新实例，导致React在进行 Virtual DOM比对时,新旧函数比对不相等，导致React总是为元素绑定新的函数实例,而旧的函数实例又要交给垃圾回收器处理.
 
-
-
 ## 8. 在构造函数中进行函数 this 绑定
-
-
 
 在类组件中如果使用fn()这种方式定义函数,函数this默认指向undefined.也就是说函数内部的this 指向需要被更正.可以在构造函数中对函数的 this进行更正,也可以在行内进行更正,两者看起来没有太大区别,但是对性能的影响是不同的.
 
-
-
 ```js
-
 export default class App extends React.Component {
     constructor() {
         super()
@@ -152,11 +132,11 @@ export default class App extends React.Component {
         // 构造函数只执行一次,所以函数this指向更正的代码也只执行一次.
         this.handleClick = this.handleClick.bind(this)
     }
-    
+
     handleClick() {
         console.log(this)
     }
-    
+
     render() {
         //方式二
         //问题: render方法每次执行时都会调用bind方法生成新的函数实例.
@@ -164,8 +144,6 @@ export default class App extends React.Component {
     }
 }
 ```
-
-
 
 ## 9. 类组件中的箭头函数
 
@@ -184,19 +162,13 @@ export default class App extends React.Component {
 
 箭头函数在this 指向问题上占据优势,但是同时也有不利的一面.
 
-
 当使用箭头函数时,，该函数被添加为类的实例对象属性,而不是原型对象属性.如果组件被多次重用,每个组件实例对象中都将会有一个相同的函数实例,降低了函数实例的可重用性造成了资源浪费.
 
-
 综上所述,更正函数内部this 指向的最佳做法仍是在构造函数中使用bind方法进行绑定
-
-
 
 ## 10. 避免使用内联样式属性
 
 当使用内联style为元素添加样式时,内联style 会被编译为JavaScript代码,通过JavaScript代码将样式规则映射到元素的身上，浏览器就会花费更多的时间执行脚本和渲染UI，从而增加了组件的渲染时间.
-
-
 
 ```js
 function App() {
@@ -206,16 +178,11 @@ function App() {
 
 在上面的组件中，为元素附加了内联样式，添加的内联样式为JavaScript对象, backgroundColor需要被转换为等效的CSS样式规则，然后将其应用到元素,这样涉及到脚本的执行.
 
-
 更好的办法是将CSS 文件导入样式组件.能通过CSS直接做的事情就不要通过JavaScript去做，因为JavaScript操作 DOM非常慢.
-
-
 
 ## 11. 优化条件渲染
 
 频繁的挂载和卸载组件是一项耗性能的操作，为了确保应用程序的性能,应该减少组件挂载和卸载的次数.在 React中我们经常会根据条件渲染不同的组件.条件渲染是一项必做的优化操作.
-
-
 
 ```js
 function App() {
@@ -253,29 +220,19 @@ function App() {
 }
 ```
 
-
-
 ## 12.避免重复无限渲染
 
 当应用程序状态发生更改时,React 会调用render方法,如果在render方法中继续更改应用程序状态,就会发生render方法递归调用导致应用报错.
 
-
-
 与其他生命周期函数不同, render方法应该被作为纯函数.这意味着，在render方法中不要做以下事情,比如不要调用setState方法，不要使用其他手段查询更改原生DOM元素;以及其他更改应用程序的任何操作. render方法的执行要根据状态的改变，这样可以保持组件的行为和渲染方式一致.
-
-
 
 ## 13.为组件创建错误边界
 
 默认情况下，组件渲染错误会导致整个应用程序中断,创建错误边界可确保在特定组件发生错误时应用程序不会中断.
 
-
 错误边界是一个React组件,可以捕获子级组件在渲染时发生的错误，当错误发生时,可以将错误记录下来,可以显示备用UI界面.错误边界涉及到两个生命周期函数,分别为getDerivedStateFromError 和 componentDidCatch.
 
-
 etDerivedStateFromError 为静态方法,方法中需要返回一个对象,该对象会和state对象进行合并,用于更改应用程序状态.componentDidCatch方法用于记录应用程序错误信息.该方法的参数就是错误对象.
-
-
 
 ```js
 import React from "react"
@@ -288,11 +245,11 @@ export default class ErrorBoundaries extends React.Component {
             hasError: false
         }
     }
-    
+
     componentDidCatch(error) {
         console.log("componentDidCatch")
     }
-    
+
     static getDerivedStateFromError() {
         console.log("getDerivedStateFromError")
         return {
@@ -308,10 +265,7 @@ export default class ErrorBoundaries extends React.Component {
         return <App />
     }
 }
-
 ```
-
-
 
 ```js
 // App.js
@@ -324,8 +278,6 @@ export default class App extends React.Component {
 }
 ```
 
-
-
 ```js
 // index.js
 import React from "react"
@@ -333,17 +285,10 @@ import ReactDOM from "react-dom"
 import ErrorBoundaries from "./ErrorBoundaries"
 
 ReactDOM.render(<ErrorBoundaries />, document.getElementById("root"));
-
 ```
 
 注意:错误边界不能捕获异步错误,比如点击按钮时发生的错误.
 
-
-
 ## 14. 避免数据结构突变
 
-
-
 ## 15. 依赖优化
-
-
