@@ -3,6 +3,7 @@ import { createSideBarConfig } from "./util";
 const pathArr = [
   "html",
   // "css",
+  "js",
   "tcp",
   "性能优化"
 ];

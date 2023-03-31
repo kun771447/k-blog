@@ -14,8 +14,6 @@ Object.is(NaN, NaN)
 
 ## Proxy
 
-
-
 ```js
 cosnt person = {
     name: 'zce',

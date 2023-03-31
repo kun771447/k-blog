@@ -1,4 +1,3 @@
-##还可以通过使用HTTP Link字段将dns-prefetch (以及其他资源提示）指定为HTTP标头:
 
 # DNS 解析
 
@@ -28,34 +27,28 @@
 
 
 
-当客户端的 DNS 缓存为空（对于浏览器和操作系统）时，DNS 查找的次数等于网页中唯一主机名的数目。这包括在页面的 URL，图像，脚本文件，样式表，Flash 对象等中使用的主机名。减少唯一主机名的数量将减少 DNS 查找的数量。
-
-
-减少域名的数量有可能减少页面中并行下载的数量。避免 DNS查找会减少响应时间，但是减少并行下载可能会增加响应时间。**我的指导原则是将这些资源划分为至少两个1个域名。这将在减少DNS查找和允许高度并行下载之间取得良好的折衷。**
-
-
 
 ## dns-prefetch
 
-DNS-prefetch (DNS预获取)是尝试在请求资源之前解析域名。这可能是后面要加载的文件，也可能是用户尝试打开的链接目标。域名解析和内容载入是串行的网络操作，所以这个方式能减少用户的等待时间，提升用户体验。
+DNS-prefetch (DNS预获取)是尝试在请求资源之前解析域名。
+这可能是后面要加载的文件，也可能是用户尝试打开的链接目标。
+域名解析和内容载入是串行的网络操作，所以这个方式能减少用户的等待时间，提升用户体验。
 
 
 dns-prefetch 可帮助开发人员掩盖 DNS 解析延迟。HTML <link> 元素通过 dns-prefetch 的 rel 属性值提供此功能。然后在 href 属性中指要跨域的域名:
 
-
-
 ```html
-<link rel="dns-prefetch" href="https: / /fonts.googleapis.com/ ">
+<link rel="dns-prefetch" href="https://fonts.googleapis.com/ ">
 ```
 
 淘宝 dns-prefetch 解析 案例
 
 ![](D:\系统默认\桌面\code\Project\k-blog\docs\public\性能优化\2023-03-07-18-59-41-image.png)
 
-还可以通过使用 HTTP Link 字段将 dns-prefetch (以及其他资源提示）指定为HTTP标头:
+## 还可以通过使用 HTTP Link 字段将 dns-prefetch (以及其他资源提示）指定为HTTP标头:
 
 ```html
-Link: <https: //fonts.gstatic.com/ >; rel=dns-prefetch
+Link: <https://fonts.gstatic.com/ >; rel=dns-prefetch
 ```
 
 每当站点引用跨域域上的资源时，都应在<head>元素中放置dns-prefetch提示，但是要记住一些注意事项。
