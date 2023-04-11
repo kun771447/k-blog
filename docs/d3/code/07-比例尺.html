@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./d3.js"></script>
+</head>
+<body>
+    <script>
+        // 比例尺: 线性 + 序数
+        // const scale = d3.scaleLinear()
+        //     // 定义域
+        //     .domain([1, 5])
+        //     // 值  域
+        //     .range([1, 100])
+
+        // console.log(scale(1)); // 1
+        // console.log(scale(4)); // 4 / 5 * 100, 75.25
+        // console.log(scale(5)); // 100
+
+        // // 只对线性比例尺起作用
+        // // 对超出定义域的的不做处理
+        // scale.clamp(true) 
+        // console.log(scale(-1)); // -48.5
+        // console.log(scale(10)); // 223.75
+
+
+        // const scale = d3.scaleBand()
+            // .domain([1, 2, 3, 4])
+            // .range([0, 100]);
+
+        // console.log(scale(1)); // 0
+        // console.log(scale(2)); // 25
+        // console.log(scale(3)); // 50
+        // console.log(scale(4)); // 75
+        // console.log(scale(5)); // 75
+
+        // 不在定义域 
+        // const scale = d3.scaleOrdinal()
+        //     .domain(['lg', 'syy', 'zce'])
+        //     .range([18, 22, 40, 50]);
+
+        // console.log(scale('lg')); // 18
+        // console.log(scale('syy')); // 22
+        // console.log(scale('zce')); // 40
+
+        // 定义域值超过值域，会重新回值域去找
+        // console.log(scale('rlggg')); // 18
+        // console.log(scale('zce')); // 40
+        // console.log(scale('abc')); // 22
+
+        // console.log(scale('lg')); // 18
+
+        // 
+        const scale = d3.scaleQuantize()
+            .domain([0, 10])
+            .range(['xl', 'm', 's'])
+
+        console.log(scale(3.33)); // xl
+        console.log(scale(3.4)); // m
+        console.log(scale(6.7)); // s
+        console.log(scale(-10)); // xl
+        console.log(scale(30)); // s
+    </script>
+</body>
+</html>

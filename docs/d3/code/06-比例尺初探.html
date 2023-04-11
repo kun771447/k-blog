@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./d3.js"></script>
+    <style>
+        div svg {
+            display: block;
+            margin: 40px auto 0;
+            border: 1px solid orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="svg"></div>
+
+    <script>
+        // 定义数据
+        const width = 700;
+        const height = 400;
+        const rectStep = 40;
+        const rectWidth = 30;
+        const data = [10, 50, 280, 122, 90, 230, 250, 3000];
+
+        /**
+         * 将某一个区域的值映射到另一个区域，保持它的大小关系不变
+         * 比例尺：线性 序列
+         * x y
+         * x 定义域 输入
+         * y 值  域 输出
+         */
+
+        // 定义填充
+        const margin = {
+            left: 20,
+            right: 20,
+            top: 20,
+            bottom: 20
+        }
+
+        const min = d3.min(data);
+        const max = d3.max(data);
+        
+        const linear = d3.scaleLinear()
+            // 定义域
+            .domain([0, max])
+            // 值域
+            .range([0, 300]);
+
+        // 创建 svg
+        d3.select('#svg')
+            // .data(data)
+            // .datum(data)
+            .append('svg')
+            .attr('width', width)
+            .attr('height', height);
+
+        // 绘制矩形
+        d3.select('svg').selectAll('rect')
+            .data(data)
+            .enter()
+            .append('rect')
+            .attr('x', (d, i) => margin.left + i * rectStep)
+            .attr('y', d => {
+                return height - linear(d) - margin.bottom;
+            })
+            .attr('width', rectWidth)
+            .attr('height', d => linear(d))
+            .attr('fill', 'lightblue')
+
+        // 绘制文字
+        d3.select('svg').selectAll('text')
+            .data(data)
+            .enter()
+            .append('text')
+            .attr('fill', '#333')
+            .attr('font-size', '20')
+            .attr('x', (d, i) => margin.left + i * rectStep)
+            .attr('y', d => height - linear(d) - margin.bottom - 10)
+            .attr('text-anchor', 'middle')
+            .attr('transform', `translate(${rectWidth / 2})`)
+            .text(d => d)
+    </script>
+</body>
+ 
+</html>

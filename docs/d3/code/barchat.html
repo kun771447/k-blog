@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <svg id="chart"></svg>
+    </div>
+
+    <script src="./d3.js"></script>
+    <script>
+        const chart = d3.select('#chart').attr('width', 500).attr('height', 500);
+
+        const heightOf = d3.scaleLinear()
+            .domain([0, 40])
+            .range([0, 200])
+
+        const data = [10, 20, 30, 35];
+
+        function update(data) {
+            const bars = chart
+            .selectAll('g')
+            .data(data)
+            
+            const enterList = bars
+                .enter()
+                .append('g')
+                .attr('transform', (d, i) => {
+                    return `translate(${21 * i}, 0)`
+                })
+                .append('rect')
+                .attr('height', 0)
+                .transition()
+                .attr('fill', 'steelblue')
+                .attr('width', 20)
+                .attr('height', heightOf)
+
+            // enterList
+            //     .append('text')
+            //     .attr('y', d => {
+            //         return heightOf(d) - 3;
+            //     })
+            //     .attr('x', barWidth / 2) 
+            //     .attr('fill', 'white')
+            //     .text(d => d + '')
+        }
+
+
+        setInterval(() => {
+            data.push(10 + Math.floor(Math.random() * 30))
+            update(data);
+        }, 2000)
+
+        update(data);
+
+    </script>
+</body>
+
+</html>

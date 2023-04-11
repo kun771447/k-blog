@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @media print {
+            html {
+                background-color: black;
+            }
+            h2 {
+                display: none;
+                color: #fff;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h2>标题</h2>
+    <script>
+        // 添加画布
+        const svg = d3.select('body').append('svg')
+            .attr('width', 600)
+            .attr('height', 400)
+
+        // 绘制图形
+        const circle = d3.select('svg').append('circle')
+            .attr('cx', 100)
+            .attr('cy', 100)
+            .attr('r', 20)
+            .attr('fill', 'seagreen')
+
+        // transition duration delay ease
+        // 初始状态 结束状态
+        circle.attr('cx', 100).attr('cy', 100)
+
+        // 结束状态
+        circle.transition()
+            .duration(3000)
+            .attr('cx', 500)
+            .attr('cy', 300)
+    </script>
+</body>
+
+</html>

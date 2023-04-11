@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <p></p>
+    <p></p>
+    <p></p>
+    <script src="./d3.js"></script>
+
+    <script>
+        // 定义数据
+        // const data = [1, 2, 3, 4, 5];
+
+        // const allP = d3.selectAll('body p');
+        // const update = allP.data(data);
+        // update.text(d => '更新' + d);
+
+        // const enter = update.enter();
+        // enter.append('p').text(d => '新增' + d);
+
+        const data = { name: 'lg', age: 100 };
+
+        d3.selectAll('body p')
+            // .data(data)
+            .datum(data)
+            .text(d => d.name);
+    </script>
+</body>
+
+</html>

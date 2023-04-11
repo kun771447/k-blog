@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="./d3.js"></script>
+
+    <script>
+        // 定义数据
+        const data = [
+            { cx: 100, cy: 100, r: 10, fill: 'orange' },
+            { cx: 130, cy: 140, r: 20, fill: 'seagreen' },
+            { cx: 230, cy: 240, r: 19, fill: 'lightblue' },
+        ];
+
+        d3.select('body').append('svg')
+            .attr('width', 600)
+            .attr('height', 400)
+
+        d3.select('svg').selectAll('circle')
+            .data(data)
+            .enter()
+            .append('circle')
+            .attr('cx', d => d.cx)
+            .attr('cy', d => d.cy)
+            .attr('r', d => d.r)
+            .attr('fill', d => d.fill)
+    </script>
+</body>
+
+</html>
