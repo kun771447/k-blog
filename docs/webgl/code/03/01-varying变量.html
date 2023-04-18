@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="500" height="600"></canvas>
+    <script src="../lib/index.js"></script>
+    <script>
+        const ctx = document.getElementById('canvas');
+
+        const gl = ctx.getContext('webgl');
+
+        // 着色器
+        // 创建着色器源码
+        // 顶点着色器
+        //  gl_Position vec4(0.0,0.0,0.0,1.0)  x, y, z, w齐次坐标 (x/w, y/w, z/w)
+        const VERTEX_SHADER_SOURCE = `
+            attribute vec4 aPosition;
+            varying vec4 vColor;
+
+            void main() {
+                vColor = aPosition;
+                gl_Position = aPosition;
+            }
+        `;
+
+        // gl_FragColor vec4(1.0,0.0,0.0,1.0) r, g, b, a
+        // 片元着色器
+        const FRAGMENT_SHADER_SOURCE = `
+            precision lowp float;
+
+            varying vec4 vColor;
+
+            void main() {
+                gl_FragColor = vColor;
+            }
+        `;
+
+        const program = initShader(gl, VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE);
+
+        const aPosition = gl.getAttribLocation(program, 'aPosition');
+        const points = new Float32Array([
+            -0.5, -0.5,
+            0.5, -0.5,
+            0, 0.5,
+        ]);
+
+        const buffer = gl.createBuffer();
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, points, gl.STATIC_DRAW);
+
+        // 数据偏移
+        gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+
+        gl.enableVertexAttribArray(aPosition);
+
+        const animate = () => {
+            // 类型，那个点开始，绘制几个点
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+            requestAnimationFrame(animate);
+        }
+        animate()
+
+    </script>
+</body>
+
+</html>
+
+
+

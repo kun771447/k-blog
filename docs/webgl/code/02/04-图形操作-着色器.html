@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        canvas {
+            background-color: antiquewhite;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="canvas" width="500" height="600"></canvas>
+    <script src="../lib/index.js"></script>
+    <script>
+        const ctx = document.getElementById('canvas');
+
+        const gl = ctx.getContext('webgl');
+
+        // 着色器
+        // 创建着色器源码
+        // 顶点着色器
+        //  gl_Position vec4(0.0,0.0,0.0,1.0)  x, y, z, w齐次坐标 (x/w, y/w, z/w)
+        const VERTEX_SHADER_SOURCE = `
+            attribute vec4 aPosition;
+            attribute float aPointSize;
+            attribute float deg;
+            void main() {
+                gl_Position.x = aPosition.x * cos(deg) - aPosition.y * sin(deg);
+                gl_Position.y = aPosition.x * sin(deg) + aPosition.y * cos(deg);
+
+                gl_Position.z = aPosition.z;
+                gl_Position.w = aPosition.w;
+
+                // 点的大小
+                gl_PointSize = 10.0; // 浮点数
+            }
+        `;
+
+        // gl_FragColor vec4(1.0,0.0,0.0,1.0) r, g, b, a
+        // 片元着色器
+        const FRAGMENT_SHADER_SOURCE = `
+            precision mediump float;
+            uniform float uColor;
+            void main() {
+                gl_FragColor = vec4(uColor, 0.0, 0.0, 1.0);
+            }
+        `;
+
+        const program = initShader(gl, VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE);
+
+        const aPosition = gl.getAttribLocation(program, 'aPosition');
+        const aPointSize = gl.getAttribLocation(program, 'aPointSize');
+        const deg = gl.getAttribLocation(program, 'deg');
+
+        const uColor = gl.getUniformLocation(program, 'uColor');
+        gl.uniform1f(uColor, 1.0);
+
+        const points = new Float32Array([
+            -0.5, -0.5,
+            0.5, -0.5,
+            0, 0.5,
+        ]);
+
+        const buffer = gl.createBuffer();
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, points, gl.STATIC_DRAW);
+
+        const BYTES = points.BYTES_PER_ELEMENT;
+        // 数据偏移
+        gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+
+        gl.enableVertexAttribArray(aPosition);
+
+        let x = 0.0;
+
+        const animate = () => {
+            x += 0.01;
+
+            gl.vertexAttrib1f(deg, x);
+            // 类型，那个点开始，绘制几个点
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+
+            requestAnimationFrame(animate);
+        }
+        animate()
+
+    </script>
+</body>
+
+</html>
