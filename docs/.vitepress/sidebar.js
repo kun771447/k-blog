@@ -5,6 +5,7 @@ const pathArr = [
   // "css",
   "js",
   "tcp",
+  "webgl",
   "性能优化"
 ];
 
