@@ -60,9 +60,9 @@ const buffer = gl.createBuffer();
 
 - type: 表示如何使用缓冲区对象中的数据，分为以下几类
   
-  - gl.STATIC_DRAW:写入一次，多次绘制
+  - gl.STATIC_DRAW: 写入一次，多次绘制
   
-  - gl.STREAM_DRAW:写入一次，绘制若干次
+  - gl.STREAM_DRAW: 写入一次，绘制若干次
   
   - gl.DYNAMIC_DRAW: 写入多次，绘制多次
 
@@ -73,16 +73,16 @@ const buffer = gl.createBuffer();
 - size:指定每个顶点所使用数据的个数
 
 - type: 指定数据格式
-  
+
   - gl.UNSIGNED_SHORT: 无符号短整型
-  
+
   - gl.INT: 整型
-  
+
   - gl.UNSIGNED_INT: 无符号整型
 
 - normalized: 表示是否将数据归一化到[0,1][-1,1]这个区间
 
-- stride: 两个相邻顶点之间的字节数
+- stride: 两个相邻顶点之间相隔的字节数
 
 - offset: 数据偏移量
 
@@ -172,6 +172,8 @@ gl.bufferData(gl.ARRAY_BUFFER, points, gl.STATIC_DRAW);
 
 const BYTES = points.BYTES_PER_ELEMENT;
 
+// BYTES * 3 两个相邻顶点之间相隔的字节数
+// 0 在偏移 0 个字节
 gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, BYTES * 3, 0);
 gl.enableVertexAttribArray(aPosition);
 
@@ -420,5 +422,17 @@ const getScaleMatrix = (deg) => {
 ## 六、矩阵复合-图形复合变换
 
 ```js
+// 矩阵复合函数
+const mixMatrix = (A, B) => {
+  const result = new Float32Array(16);
+  
+  for (let i = 0; i < 4; i++) {
+    result[i] = A[i] * B[0] +  A[i + 4] * B[1] + A[i + 8] * B[2] + A[i + 12] * B[3];
+    result[i + 4] = A[i] * B[4] +  A[i + 4] * B[5] + A[i + 8] * B[6] + A[i + 12] * B[7];
+    result[i + 8] = A[i] * B[8] +  A[i + 4] * B[9] + A[i + 8] * B[10] + A[i + 12] * B[11];
+    result[i + 12] = A[i] * B[12] +  A[i + 4] * B[13] + A[i + 8] * B[14] + A[i + 12] * B[15];
+  } 
 
+  return result;
+}
 ```

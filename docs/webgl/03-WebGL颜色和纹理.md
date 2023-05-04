@@ -24,6 +24,8 @@ const FRAGMENT_SHADER_SOURCE = `
 `;
 ```
 
+varying 从顶点着色器向片元着色器传递数据
+
 ## 二、从顶点到图形-WebGL 渲染流程介绍
 
 ### 1. 整体流程
@@ -58,11 +60,7 @@ const FRAGMENT_SHADER_SOURCE = `
 
 ![](D:\系统默认\桌面\code\Project\k-blog\docs\public\webgl\2023-04-13-19-07-57-image.png)
 
-
-
 - 在 WebGL 里需要通过纹理坐标和图形顶点坐标的映射关系来确定贴图
-
-
 
 ![](D:\系统默认\桌面\code\Project\k-blog\docs\public\webgl\2023-04-13-19-13-16-image.png)
 
@@ -76,19 +74,13 @@ const texture = gl.createTexture();
 
 - 可以通过 gl.deleteTexture(texture) 来删除纹理对象
 
-
-
 ### 3.  进行 Y 轴旋转
 
 ```js
 gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, 1);
 ```
 
-
-
 ![](D:\系统默认\桌面\code\Project\k-blog\docs\public\webgl\2023-04-13-20-16-02-image.png)
-
-
 
 ### 4. 开启（激活）纹理单元
 
@@ -98,15 +90,11 @@ gl.activeTexture(gl.TEXTURE0);
 
 - Webgl 是通过纹理单元来管理纹理对象，每个纹理单元管理⼀张纹理图像。
 
-
-
 ### 5. 绑定纹理单元
 
 ```js
 gl.bindTexture(type, texture)
 ```
-
-
 
 - type 参数以下两种：
   
@@ -154,8 +142,6 @@ gl.texParamteri(type, pname, param)
     
     - gl.CLAMP_TO_EDGE 边缘延伸
 
-
-
 ```js
 // 处理放大缩小的逻辑
 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
@@ -165,8 +151,6 @@ gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
 gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
 ```
-
-
 
 ### 8. 配置纹理图像
 
@@ -210,15 +194,11 @@ gl.texImage2D(type, level, internalformat, format,dataType, image);
 
 - image 图片对象
 
-
-
 ### vec4 texture2D(sampler2D sampler, vec2 coord）
 
 - sampler 纹理单元编号 
 
 - coord 纹理坐标
-
-
 
 ```js
 const FRAGMENT_SHADER_SOURCE = `
@@ -232,18 +212,13 @@ const FRAGMENT_SHADER_SOURCE = `
 `;
 ```
 
-
-
 ### 流程
 
 ![](D:\系统默认\桌面\code\Project\k-blog\docs\public\webgl\2023-04-13-20-40-23-image.png)
 
-
-
 ### 代码示例
 
 ```js
-
 const VERTEX_SHADER_SOURCE = `
     attribute vec4 aPosition;
 
@@ -335,13 +310,7 @@ img.onload = () => {
 }
 ```
 
-
-
 **这里使用图片尽量使用 2 的整数次幂的图片，光栅化这个过程需要对采样进行快速取值，如果是 2 的整数次幂就可以实现快速取值**
-
-
-
-
 
 ## 四、使用多重纹理
 
@@ -362,8 +331,6 @@ const FRAGMENT_SHADER_SOURCE = `
 `;
 ```
 
-
-
 ```js
  // 开启一个纹理单元
 gl.activeTexture(gl[`TEXTURE${index}`]);
@@ -371,8 +338,6 @@ gl.activeTexture(gl[`TEXTURE${index}`]);
 // 1i 是整形，1f 是浮点型
 gl.uniform1i(sampler, index)
 ```
-
-
 
 ```js
 const getImage = (src, sampler, index) => {
