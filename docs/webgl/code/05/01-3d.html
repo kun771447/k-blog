@@ -6,79 +6,93 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        canvas {
+            background-color: antiquewhite;
+        }
+    </style>
 </head>
 
 <body>
+    <canvas id="canvas" width="500" height="600"></canvas>
+    <script src="../lib/index.js"></script>
     <script>
-        // 归一化函数
-        function normalized() {
-            let sum = 0;
-            for (let i = 0; i < arr.length; i++) {
-                sum += arr[i] * arr[i];
+        const ctx = document.getElementById('canvas');
+
+        const gl = ctx.getContext('webgl');
+
+        // 着色器
+        // 创建着色器源码
+        // 顶点着色器
+        //  gl_Position vec4(0.0,0.0,0.0,1.0)  x, y, z, w齐次坐标 (x/w, y/w, z/w)
+        const VERTEX_SHADER_SOURCE = `
+            attribute vec4 aPosition;
+            uniform mat4 mat;
+            void main() {
+                gl_Position = mat * aPosition;
+                // 点的大小
+                gl_PointSize = 10.0; // 浮点数
+            }
+        `;
+
+        // gl_FragColor vec4(1.0,0.0,0.0,1.0) r, g, b, a
+        // 片元着色器
+        const FRAGMENT_SHADER_SOURCE = `
+            precision mediump float;
+            uniform float uColor;
+            void main() {
+                gl_FragColor = vec4(uColor, 0.0, 0.0, 1.0);
+            }
+        `;
+
+        const program = initShader(gl, VERTEX_SHADER_SOURCE, FRAGMENT_SHADER_SOURCE);
+
+        const aPosition = gl.getAttribLocation(program, 'aPosition');
+        const mat = gl.getUniformLocation(program, 'mat');
+
+        const uColor = gl.getUniformLocation(program, 'uColor');
+        gl.uniform1f(uColor, 1.0);
+
+        const points = new Float32Array([
+            -0.5, -0.5,
+            0.5, -0.5,
+            0, 0.5,
+        ]);
+
+        const buffer = gl.createBuffer();
+
+        gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+        gl.bufferData(gl.ARRAY_BUFFER, points, gl.STATIC_DRAW);
+
+        const BYTES = points.BYTES_PER_ELEMENT;
+        // 数据偏移
+        gl.vertexAttribPointer(aPosition, 2, gl.FLOAT, false, 0, 0);
+
+        gl.enableVertexAttribArray(aPosition);
+
+        let eyey = -0.1;
+
+        const animate = () => {
+            eyey += 0.01;
+
+            if (eyey > 1) {
+                eyey -= 1;
             }
 
-            const middle = Math.sqrt(sum);
+            // const matrix = getTranslateMatrix(x);
+            const matrix = getViewMatrix(
+                0.0, eyey, 0.2,
+                0.0, 0.0, 0.0,
+                0.0, 0.6, 0.0,
+            );
+            gl.uniformMatrix4fv(mat, false, matrix);
+            // 类型，那个点开始，绘制几个点
+            gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
 
-            for (let i = 0; i < arr.length; i++) {
-                arr[i] = arr[i] / middle;
-            }
+            requestAnimationFrame(animate);
         }
+        animate()
 
-        // 叉积函数 获取法向量
-        function cross(a, b) {
-            return new Float32Array([
-                a[0] * b[1] - a[1] * b[0],
-                a[1] * b[2] - a[2] * b[1],
-                a[2] * b[0] - a[0] * b[2],
-            ]);
-        }
-
-        // 点积函数 获取投影长度
-        function dot(a, b) {
-            return a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
-        }
-
-        // 向量差
-        function minus(a, b) {
-            return new Float32Array([
-                a[0] - b[0],
-                a[1] - b[1],
-                a[2] - b[2],
-            ]);
-        }
-
-        // 视图矩阵获取
-        function getViewMatrix(eyex, eyey, eyez, lookAtx, lookAty, lookAtz, upx, upy, upz) {
-            // 视点
-            const eye = new Float32Array([eyex, eyey, eyez]);
-
-            // 目标点
-            const lookAt = new Float32Array([lookAtx, lookAty, lookAtz]);
-
-            // 上方向
-            const up = new Float32Array([upx, upy, upz]);
-
-            // 确定 z 轴
-            const z = minus(eye, lookAt);
-
-            normalized(z);
-            normalized(up);
-
-            // 确定 x 轴
-            const x = cross(z, up);
-
-            normalized(x);
-
-            // 确定 y 轴
-            const y = cross(x, z);
-
-            return new Float32Array([
-                x[0],               y[0],           z[0],       0,
-                x[1],               y[1],           z[1],       0,
-                x[2],               y[2],           z[2],       0,
-                -dot(x, eye), -dot(y, eye), -dot(z, eye),       1,
-            ]);
-        }
     </script>
 </body>
 

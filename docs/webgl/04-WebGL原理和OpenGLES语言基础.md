@@ -74,8 +74,6 @@ float f;
 ? : 三元操作符
 ```
 
-
-
 ## 二、矢量和矩阵
 
 ### 1. 矢量
@@ -135,8 +133,6 @@ mat4 m = mat4(
 );
 ```
 
-
-
 ## 三、纹理取样器
 
 ### 1. 取样器介绍
@@ -176,8 +172,6 @@ gl.texImage2D(gl.TEXTURE_2D，0，gl.RGB，gl.RGB，gl.UNSIGNED_BYTE，img);
 gl.uniform1i(usampler，0);
 ```
 
-
-
 ### 4. 立方体纹理使用
 
 ```js
@@ -201,10 +195,7 @@ gl.texImage2D(gl.TEXTURE_CUBE_MAP_POSITIVE_Y ,0,gl.RGB,gl.RGB,gl.UNSIGNED_BYTE�
 gl.texImage2D(g1.TEXTURE_CUBE_MAP_NEGATIVE_Y ,0,gl.RGB,gl.RGB,g1.UNSIGNED_BYTE，images[5]);
 
 gl.uniform1i(uSamplercube,1);
-
 ```
-
-
 
 ## 四、分支和循环
 
@@ -232,8 +223,6 @@ do {} while()
   
   - 只能再片元着色器中使用，表示放弃当前片元直接处理下一个片元
 
-
-
 ## 五、函数
 
 ```js
@@ -250,7 +239,6 @@ const VERTEX_SHADER_SOURCE =`
         gl_Pointsize = 10.0;
     }
 ';
-
 ```
 
 ## 六、内置函数
@@ -321,8 +309,6 @@ GLSL ES里提供了较多的内置函数，可以直接使用
 
 - normalize(x) 返回方向同 x，长度为1的向量
 
-
-
 ## 七、存储限定词
 
 ### 1. const
@@ -363,8 +349,6 @@ GLSL ES里提供了较多的内置函数，可以直接使用
     precision mediump float;
     ```
 
-
-
 - 精度枚举
   
   - 高精度：highp
@@ -373,9 +357,6 @@ GLSL ES里提供了较多的内置函数，可以直接使用
   
   - 低精度：lowp
 
-
-
 ### 6. 什么时候使用精度限定
 
 - 片元着色器中的 **float** 类型没有默认精度，所以如果需要在片元着色器中使用 **浮点型数据** 的时候，需要修改默认精度
-

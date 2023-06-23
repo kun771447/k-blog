@@ -4,10 +4,10 @@
  * @return {number}
  */
 var findContentChildren = function(g, s) {
-    const sortFunc = (a, b) => a - b;
+    const sortAscFunc = (a, b) => a - b;
 
-    g.sort(sortFunc);
-    s.sort(sortFunc);
+    g.sort(sortAscFunc);
+    s.sort(sortAscFunc);
 
     let i = 0;
     s.forEach(n => {

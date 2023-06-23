@@ -1,0 +1,45 @@
+
+```js
+        // 创建一个场景
+        const scene = new THREE.Scene();
+
+        // 创建一个相机，视点
+        const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+        // 设置相机的位置
+        camera.position.set(0, 0, 20); // x, y, z
+
+        // 创建一个渲染器
+        const renderer = new THREE.WebGLRenderer();
+        // 设置渲染器尺寸
+        renderer.setSize(window.innerWidth, window.innerHeight);
+
+        document.body.appendChild(renderer.domElement);
+
+        // 创建一个立方体对象
+        const cubeGeometry = new THREE.BoxGeometry(2, 2, 2);
+        // 创建材质
+        const cubeMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+
+        const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+
+        // 添加一个球体
+        const sphereGeometry = new THREE.SphereGeometry(1, 10, 10);
+        const sphereMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+
+        const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+        sphere.position.x =  3;
+        sphere.position.y =  3;
+
+        scene.add(cube);
+        scene.add(sphere);
+        const animate = () => {
+            cube.rotation.x += 0.01;
+            cube.rotation.y += 0.01;
+
+            renderer.render(scene, camera);
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+```

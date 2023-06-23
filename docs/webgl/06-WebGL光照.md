@@ -64,4 +64,48 @@
 
 - 当漫反射和环境反射同时存在时，将两者加起来，就会得到物体最终被观察到的颜色∶
 
-- <表面的反射光颜色>=<漫反射光颜色>+<环境反射光颜色>
+- **<表面的反射光颜色>=<漫反射光颜色>+<环境反射光颜色>**
+
+## 二、给场景添加光源
+
+```js
+    // 创建着色器源码
+    const VERTEX_SHADER_SOURCE = `
+    attribute vec4 aPosition;
+    attribute vec4 aNormal;
+    varying vec4 vColor;
+
+    uniform mat4 mat;
+    void main() {
+        // 定义点光源的颜色
+        vec3 uPointLightColor = vec3(1.0,1.0,0.0);
+
+        // 点光源的位置
+        vec3 uPointLightPosition = vec3(-5.0,6.0,10.0);
+
+        // 环境光
+        vec3 uAmbientLightColor = vec3(0.2,0.2,0.2);
+
+        // 物体表面的颜色
+        vec4 aColor = vec4(1.0,0.0,0.0,1.0);
+
+        // 顶点的世界坐标
+        vec4 vertexPosition = mat * aPosition;
+
+        // 点光源的方向
+        vec3 lightDirection = normalize(uPointLightPosition - vec3(vertexPosition));
+
+        // 环境反射
+        vec3 ambient = uAmbientLightColor * vec3(aColor);
+
+        // 计算入射角 光线方向和法线方向的点积
+        float dotDeg = dot(lightDirection, vec3(aNormal));
+
+        // 漫反射光的颜色
+        vec3 diffuseColor = uPointLightColor * vec3(aColor) * dotDeg;
+
+        gl_Position = vertexPosition;
+        vColor = vec4(ambient + diffuseColor, aColor.a);
+    }
+  `; // 顶点着色器
+```

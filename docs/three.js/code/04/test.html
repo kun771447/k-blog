@@ -1,0 +1,22 @@
+//创建材质
+const cubeMaterial = new THREE.ShaderMaterial({
+    uniforms: {
+        a: {
+            type: 'f',
+            value: 1.0,
+        },
+    },
+
+    vertexShader: `
+        void main() {
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position，1.0);
+        }
+    `,
+
+    fragment: `
+        uniform float a;
+        void main() {
+            gl_FragColor = vec4(1.0,0.0,0.0,a);
+        }
+    `
+});
