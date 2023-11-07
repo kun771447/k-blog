@@ -17,6 +17,7 @@
     "serve": "vitepress preview docs"
   },
   "dependencies": {
+    "@types/three": "^0.157.2",
     "vite": "^4.1.1"
   }
 }
