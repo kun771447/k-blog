@@ -11,4 +11,9 @@
 // import './12-shadows';
 // import './13-haunted-house';
 // import './13-haunted-house2';
-import './14-particles';
+// import './14-particles';
+// import './15-galaxy-generator';
+// import './16-raycaster';
+// import './17-scroll-based-animation';
+// import './18-physics';
+ import './19-imported-models'
