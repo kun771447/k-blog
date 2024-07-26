@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 圆形，矩形 -->
+    <svg
+      width="256"
+      height="256"
+      viewBox="0 0 256 256"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect x="10" y="10" width="300" height="300" />
+      <circle cx="175" cy="100" r="75" fill="red" />
+    </svg>
+
+    <!-- 过滤器 -->
+    <svg width="500" height="500" viewBox="0 0 500 500">
+      <filter id="blur">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="5" />
+      </filter>
+      <circle cx="170" cy="60" r="50" fill="green" filter="url(#blur)" />
+    </svg>
+
+    <!-- 遮罩 -->
+    <svg width="500" height="500" viewBox="0 0 500 500">
+      <defs>
+        <mask id="mask">
+          <image width="500" height="500" xlink:href="./mask.png" />
+        </mask>
+      </defs>
+      <image
+        mask="url(#mask)"
+        width="500"
+        height="500"
+        xlink:href="./img.png"
+      />
+    </svg>
+  </body>
+</html>
